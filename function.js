@@ -157,4 +157,39 @@ function update(movies){
     typeselector.innerHTML=createOptions(filterMoviesByType(movies));
 }
 
+function createMovieOfTheDay(movie){
+    let cardHead=document.createElement('div');
+    cardHead.classList.add('topOfDay');
+    let cardContent=document.createElement('div');
+    cardContent.classList.add('contentOfDay');
+    let title=document.createElement('h2');
+    title.classList.add("titleOfMovie");
+    title.textContent=movie.title;
+    let describe=document.createElement('p');
+    describe.classList.add("describeofmovie");
+    describe.textContent=movie.overview;
+    cardContent.appendChild(title);
+    cardContent.appendChild(describe);
+    cardHead.appendChild(cardContent);
+    return cardHead;
+    
 
+}
+
+async function movieOfTheDay(){
+    try{
+        let data=await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=1fa8650e7541aa42bca8ac6eec5f1f3f&language=en-US&page=1`);
+        data = await data.json();
+     
+        let movieOfTheDay=document.querySelector(".movieoftheday");
+        console.log(data.results[0]);
+        console.log(createMovieOfTheDay(data.results[0]));
+          
+        let movie=data.results[0];
+        movieOfTheDay.style.backgroundImage=`url(https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/${movie.backdrop_path})`;
+        movieOfTheDay.appendChild(createMovieOfTheDay(data.results[0]));
+
+    }catch(err){
+        console.error(err);
+    }
+}
