@@ -5,6 +5,11 @@ let filterForOptionSerials=document.querySelector(".serials-f");
 let headmovie=document.querySelector(".movieoftheday");
 
 movieOfTheDay();
+nowPlayingMovies();
+upComingMovies();
+topRateMovies();
+
+
 movieOption.addEventListener("mouseenter",(e)=>{
    filterForOptionSerials.style.display='none'
    filterForOptionMovie.style.display='flex';
