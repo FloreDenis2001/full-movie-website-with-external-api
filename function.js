@@ -168,12 +168,40 @@ function createMovieOfTheDay(movie){
     let describe=document.createElement('p');
     describe.classList.add("describeofmovie");
     describe.textContent=movie.overview;
+    let buttonPlay=document.createElement('button');
+    buttonPlay.classList.add("playoftheday");
+    buttonPlay.textContent='Watch';
+    let buttonFav=document.createElement('button');
+    buttonFav.classList.add("favoftheday");
+    buttonFav.textContent='More Info';
     cardContent.appendChild(title);
     cardContent.appendChild(describe);
+    cardContent.appendChild(buttonPlay);
+    cardContent.appendChild(buttonFav);
     cardHead.appendChild(cardContent);
     return cardHead;
     
 
+}
+
+function createMovieForSections(movie){
+    let card=document.createElement('div');
+    card.classList.add('cardMovie');
+    let string=`id-${movie.id}`;
+    card.classList.add(string);
+    card.style.backgroundImage=`url(https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${movie.poster_path})`;
+    let buttonsSection=document.createElement('div');
+    buttonsSection.classList.add('buttonsCard');
+    let buttonPlay=document.createElement('button');
+    buttonPlay.classList.add("btn-popular-play");
+    let buttonAdd=document.createElement('button');
+    buttonAdd.classList.add("btn-popular-add");
+    buttonAdd.textContent="+";
+    buttonsSection.appendChild(buttonPlay);
+    buttonsSection.appendChild(buttonAdd);
+    card.appendChild(buttonsSection);
+
+    return card;
 }
 
 async function movieOfTheDay(){
@@ -182,12 +210,59 @@ async function movieOfTheDay(){
         data = await data.json();
      
         let movieOfTheDay=document.querySelector(".movieoftheday");
-        console.log(data.results[0]);
-        console.log(createMovieOfTheDay(data.results[0]));
+    
           
         let movie=data.results[0];
         movieOfTheDay.style.backgroundImage=`url(https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/${movie.backdrop_path})`;
         movieOfTheDay.appendChild(createMovieOfTheDay(data.results[0]));
+
+        let popularmovies=document.querySelector(".popularmovies");
+        for(let i=0;i<5;i++){      
+          popularmovies.appendChild(createMovieForSections(data.results[i]));
+        }
+
+    }catch(err){
+        console.error(err);
+    }
+}
+
+
+async function nowPlayingMovies(){
+    try{
+        let data=await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=1fa8650e7541aa42bca8ac6eec5f1f3f&language=en-US&page=1`);
+        data = await data.json();
+        let nowplaymovies=document.querySelector(".nowplaymovies");
+        for(let i=0;i<5;i++){      
+          nowplaymovies.appendChild(createMovieForSections(data.results[i]));
+        }
+
+    }catch(err){
+        console.error(err);
+    }
+}
+
+async function upComingMovies(){
+    try{
+        let data=await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=1fa8650e7541aa42bca8ac6eec5f1f3f&language=en-US&page=1`);
+        data = await data.json();
+        let upmovies=document.querySelector(".upmovies");
+        for(let i=0;i<5;i++){      
+          upmovies.appendChild(createMovieForSections(data.results[i]));
+        }
+
+    }catch(err){
+        console.error(err);
+    }
+}
+
+async function topRateMovies(){
+    try{
+        let data=await fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=1fa8650e7541aa42bca8ac6eec5f1f3f&language=en-US&page=1`);
+        data = await data.json();
+        let ratemovies=document.querySelector(".ratemovies");
+        for(let i=0;i<5;i++){      
+          ratemovies.appendChild(createMovieForSections(data.results[i]));
+        }
 
     }catch(err){
         console.error(err);
