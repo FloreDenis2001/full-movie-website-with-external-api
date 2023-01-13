@@ -12,6 +12,10 @@ let btnSection=document.querySelector(".buttonsCard");
 let mainMovie=document.querySelector(".main-movie");
 let moviesSection=document.querySelector(".movies");
 
+let optiuniCategorie=document.querySelector(".modal-categorie");
+let categorieBtn=document.querySelector(".categorie");
+let closeBtnCategorie=document.querySelector(".close-categorie")
+
 // moviesSection.addEventListener("click",(e)=>{
 //        mainMovie.innerHTML=" ";
 //        movieOfTheDay();
@@ -26,9 +30,15 @@ cardOfTheDay();
 nowPlayingMovies();
 upComingMovies();
 topRateMovies();
+category();
 
+categorieBtn.addEventListener("click",(e)=>{
+   optiuniCategorie.style.display='flex';
+})
 
-
+closeBtnCategorie.addEventListener("click",(e)=>{
+   optiuniCategorie.style.display='none';
+})
 /*FILME SI SERIALE
 */
 movieOption.addEventListener("mouseenter",(e)=>{
@@ -37,7 +47,7 @@ movieOption.addEventListener("mouseenter",(e)=>{
 })
 
 movieOption.addEventListener("mouseover",(e)=>{
-   setTimeout(()=>{filterForOptionMovie.style.display='none';},50000);
+   setTimeout(()=>{filterForOptionMovie.style.display='none';},5000);
 })
 
 
@@ -47,7 +57,7 @@ serialsOption.addEventListener("mouseenter",(e)=>{
 })
 
 serialsOption.addEventListener("mouseover",(e)=>{
-   setTimeout(()=>{filterForOptionSerials.style.display='none';},50000);
+   setTimeout(()=>{filterForOptionSerials.style.display='none';},5000);
 })
 
 
