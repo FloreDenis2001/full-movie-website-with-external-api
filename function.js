@@ -258,9 +258,11 @@ async function nowPlayingMovies(){
         let data=await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=1fa8650e7541aa42bca8ac6eec5f1f3f&language=en-US&page=1`);
         data = await data.json();
         let nowplaymovies=document.querySelector(".nowplaycard");
+        nowplaymovies.appendChild(createPrevBtn());
         for(let i=0;i<5;i++){      
           nowplaymovies.appendChild(createCardForSections(data.results[i]));
         }
+        nowplaymovies.appendChild(createNextBtn());
 
     }catch(err){
         console.error(err);
@@ -272,9 +274,11 @@ async function upComingMovies(){
         let data=await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=1fa8650e7541aa42bca8ac6eec5f1f3f&language=en-US&page=1`);
         data = await data.json();
         let upmovies=document.querySelector(".upcard");
+        upmovies.appendChild(createPrevBtn());
         for(let i=0;i<5;i++){      
           upmovies.appendChild(createCardForSections(data.results[i]));
         }
+        upmovies.appendChild(createNextBtn())
 
     }catch(err){
         console.error(err);
@@ -286,9 +290,11 @@ async function topRateMovies(){
         let data=await fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=1fa8650e7541aa42bca8ac6eec5f1f3f&language=en-US&page=1`);
         data = await data.json();
         let ratemovies=document.querySelector(".ratecard");
+        ratemovies.appendChild(createPrevBtn());
         for(let i=0;i<5;i++){      
           ratemovies.appendChild(createCardForSections(data.results[i]));
         }
+        ratemovies.appendChild(createNextBtn());
 
     }catch(err){
         console.error(err);
@@ -309,24 +315,48 @@ async function cardOfTheDay(){
         movieOfTheDay.appendChild(createCardOfTheDay(data.results[0]));
 
         let popularmovies=document.querySelector(".popularcard");
-        for(let i=0;i<5;i++){      
+        popularmovies.appendChild(createPrevBtn());   
+        for(let i=0;i<5;i++){  
           popularmovies.appendChild(createCardForSections(data.results[i]));
         }
+        popularmovies.appendChild(createNextBtn());
 
     }catch(err){
         console.error(err);
     }
 }
 
+function createPrevBtn(){
+    let section=document.createElement("div");
+    section.classList.add("prev-section");
+    let icon=document.createElement("i");
+    icon.classList.add("fa-solid");
+    icon.classList.add("fa-angle-left");
+    section.appendChild(icon);
+
+    return section;
+}
+function createNextBtn(){
+    let section=document.createElement("div");
+    section.classList.add("next-section");
+    let icon=document.createElement("i");
+    icon.classList.add("fa-solid");
+    icon.classList.add("fa-angle-right");
+    section.appendChild(icon);
+
+    return section;
+}
 
 async function nowPlayingCard(){
     try{
         let data=await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=1fa8650e7541aa42bca8ac6eec5f1f3f&language=en-US&page=1`);
         data = await data.json();
         let nowplaymovies=document.querySelector(".nowplaycard");
+        nowplaymovies.appendChild(createPrevBtn());
         for(let i=0;i<5;i++){      
           nowplaymovies.appendChild(createCardForSections(data.results[i]));
         }
+        nowplaymovies.appendChild(createNextBtn());
 
     }catch(err){
         console.error(err);
@@ -338,9 +368,11 @@ async function upComingCard(){
         let data=await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=1fa8650e7541aa42bca8ac6eec5f1f3f&language=en-US&page=1`);
         data = await data.json();
         let upmovies=document.querySelector(".upcard");
+        upmovies.appendChild(createPrevBtn());
         for(let i=0;i<5;i++){      
           upmovies.appendChild(createCardForSections(data.results[i]));
         }
+        upmovies.appendChild(createNextBtn());
 
     }catch(err){
         console.error(err);
@@ -359,4 +391,30 @@ async function topRateCard(){
     }catch(err){
         console.error(err);
     }
+}
+
+
+
+async function category(){
+    try{
+
+        let data =await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=1fa8650e7541aa42bca8ac6eec5f1f3f&language=en-US`);
+
+        data=await data.json();
+        let categorie=document.querySelector(".optiuni-categorie");
+        console.log(categorie);
+        for(let i=0;i<data.genres.length;i++){
+            categorie.appendChild(attachCategory(data.genres[i]));
+        }
+
+    }catch(err){
+        console.error(err);
+    }
+}
+
+function attachCategory(card){
+    let option=document.createElement("p");
+    option.textContent=card.name;
+
+    return option
 }
