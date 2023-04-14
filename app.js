@@ -56,6 +56,7 @@ serialsOption.addEventListener("mouseenter",(e)=>{
    filterForOptionSerials.style.display='flex';
 })
 
+
 serialsOption.addEventListener("mouseover",(e)=>{
    setTimeout(()=>{filterForOptionSerials.style.display='none';},5000);
 })
